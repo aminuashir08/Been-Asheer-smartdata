@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy Data | BEEN ASHEER SMART DATA</title>
 
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f5f8;
+    color: #142c43;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+header {
+    background: #102c47;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+header h2 {
+    margin-bottom: 8px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px #00000010;
+}
+
+label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 22px;
+    background: #102c47;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #102c47;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 18px;
+    color: #777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back" href="index.html">← Back to Home</a>
+
+<header>
+<h2>BEEN ASHEER SMART DATA</h2>
+<p>Buy Affordable Data Plans</p>
+</header>
+
+<div class="card">
+
+<h2>Buy Data</h2>
+
+<form id="dataForm">
+
+<label>Select Network</label>
+<select id="network" required>
+<option value="">Choose Network</option>
+<option value="MTN">MTN</option>
+<option value="Airtel">Airtel</option>
+<option value="Glo">Glo</option>
+<option value="9mobile">9mobile</option>
+</select>
+
+<label>Phone Number</label>
+<input
+type="tel"
+id="phone"
+placeholder="Enter phone number"
+maxlength="11"
+required
+>
+
+<label>Select Data Plan</label>
+<select id="plan" required>
+<option value="">Choose Data Plan</option>
+<option value="500MB">500MB</option>
+<option value="1GB">1GB</option>
+<option value="2GB">2GB</option>
+<option value="3GB">3GB</option>
+<option value="5GB">5GB</option>
+<option value="10GB">10GB</option>
+</select>
+
+<button type="submit">Continue</button>
+
+</form>
+
+<p class="note">
+Demo page: No payment will be made and no data will be delivered until a secure data service API is connected.
+</p>
+
+</div>
+</div>
+
+<script>
+document.getElementById("dataForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const network = document.getElementById("network").value;
+    const phone = document.getElementById("phone").value;
+    const plan = document.getElementById("plan").value;
+
+    if (!/^[0-9]{11}$/.test(phone)) {
+        alert("Please enter a valid 11-digit phone number.");
+        return;
+    }
+
+    alert(
+        "Your selection:\n" +
+        "Network: " + network + "\n" +
+        "Phone: " + phone + "\n" +
+        "Plan: " + plan +
+        "\n\nDemo only. Payment and data delivery are not yet active."
+    );
+});
+</script>
+
+</body>
+</html>
