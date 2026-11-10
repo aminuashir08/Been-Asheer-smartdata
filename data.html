@@ -165,6 +165,39 @@ document.getElementById("dataForm").addEventListener("submit", function(e) {
     );
 });
 </script>
+<div id="orderSummary" style="display:none; background:#e8f5e9; padding:15px; margin:15px 0; border-radius:10px;">
+  <h3>Order Summary</h3>
+  <p id="summaryNetwork"></p>
+  <p id="summaryPhone"></p>
+  <p id="summaryPlan"></p>
+  <p id="summaryPrice"></p>
+  <p>Demo only — no payment or data delivery yet.</p>
+</div>
 
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const network = document.querySelector("select").value;
+  const phone = document.querySelector("input").value;
+  const plan = document.querySelector("#plan").value;
+
+  const prices = {
+    "500MB": 150,
+    "1GB": 250,
+    "2GB": 500,
+    "3GB": 750,
+    "5GB": 1200,
+    "10GB": 2300
+  };
+
+  document.getElementById("summaryNetwork").textContent = "Network: " + network;
+  document.getElementById("summaryPhone").textContent = "Phone: " + phone;
+  document.getElementById("summaryPlan").textContent = "Plan: " + plan;
+  document.getElementById("summaryPrice").textContent = "Price: ₦" + prices[plan].toLocaleString();
+
+  document.getElementById("orderSummary").style.display = "block";
+});
+</script>
 </body>
 </html>
