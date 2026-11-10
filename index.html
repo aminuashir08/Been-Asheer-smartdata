@@ -1,21 +1,234 @@
 <! index. html>
-<html lang="en">
+<html lang="ha">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BEEN ASHEER SMART DATA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BEEN ASHEER SMART DATA</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f5f8;
+  color: #142c43;
+}
+
+header {
+  background: #102c47;
+  color: white;
+  padding: 30px 20px 45px;
+  border-radius: 0 0 30px 30px;
+}
+
+header small {
+  color: #b9d2e4;
+}
+
+header h1 {
+  font-size: 25px;
+  margin: 18px 0 10px;
+}
+
+header p {
+  color: #d4e4ef;
+}
+
+.container {
+  padding: 20px;
+  max-width: 650px;
+  margin: auto;
+}
+
+.wallet {
+  background: white;
+  padding: 25px;
+  border-radius: 22px;
+  margin-top: -15px;
+  box-shadow: 0 5px 20px #00000010;
+}
+
+.wallet small {
+  color: #788895;
+}
+
+.balance {
+  font-size: 34px;
+  margin: 12px 0 20px;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.deposit {
+  background: #e2f1eb;
+  color: #07815d;
+  flex: 1;
+}
+
+.history {
+  background: #102c47;
+  color: white;
+  flex: 1;
+}
+
+.section-title {
+  margin: 30px 0 15px;
+  font-size: 21px;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.service {
+  background: white;
+  padding: 22px 12px;
+  border-radius: 17px;
+  text-align: center;
+  box-shadow: 0 3px 12px #00000008;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.service h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.service p {
+  font-size: 12px;
+  color: #8795a1;
+}
+
+.notice {
+  background: #fff5d9;
+  padding: 15px;
+  border-radius: 12px;
+  color: #80652c;
+  margin-top: 25px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 10px;
+  color: #82909a;
+  font-size: 13px;
+}
+
+</style>
 </head>
 
 <body>
+
+<header>
+  <small>SAUKI DA SAURI • AMINTACCE</small>
+
   <h1>BEEN ASHEER SMART DATA</h1>
 
-  <p>Welcome to our smart digital service.</p>
+  <p>Data, Airtime da sauran ayyukan biyan kuɗi.</p>
+</header>
 
-  <button>Buy Data</button>
-  <button>Buy Airtime</button>
-  <button>Exam PIN</button>
-  <button>Electricity</button>
-  <button>School Payment</button>
-  <button>Transfer</button>
+<div class="container">
+
+  <div class="wallet">
+
+    <small>Wallet Balance (Demo)</small>
+
+    <div class="balance">₦0.00</div>
+
+    <div class="buttons">
+      <button class="deposit" onclick="alert('Deposit system zai zo nan gaba.')">
+        Saka Kudi
+      </button>
+
+      <button class="history" onclick="alert('Transaction history zai zo nan gaba.')">
+        Tarihin Ciniki
+      </button>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Ayyukanmu</h2>
+
+  <div class="services">
+
+    <div class="service" onclick="alert('Data subscription zai zo nan gaba.')">
+      <div class="icon">📱</div>
+      <h3>Buy Data</h3>
+      <p>Siyan Data</p>
+    </div>
+
+    <div class="service" onclick="alert('Airtime zai zo nan gaba.')">
+      <div class="icon">📞</div>
+      <h3>Airtime</h3>
+      <p>Siyan Katin Waya</p>
+    </div>
+
+    <div class="service" onclick="alert('Exam PIN zai zo nan gaba.')">
+      <div class="icon">🎓</div>
+      <h3>Exam PIN</h3>
+      <p>WAEC, NECO, JAMB</p>
+    </div>
+
+    <div class="service" onclick="alert('Electricity payment zai zo nan gaba.')">
+      <div class="icon">💡</div>
+      <h3>Electricity</h3>
+      <p>Biyan NEPA</p>
+    </div>
+
+    <div class="service" onclick="alert('School payment zai zo nan gaba.')">
+      <div class="icon">🏫</div>
+      <h3>School Payment</h3>
+      <p>Biyan Kuɗin Makaranta</p>
+    </div>
+
+    <div class="service" onclick="alert('Transfer zai zo nan gaba.')">
+      <div class="icon">💳</div>
+      <h3>Transfer</h3>
+      <p>Tura Kuɗi</p>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    <strong>Sanarwa:</strong><br>
+    BEEN ASHEER SMART DATA yana aiki kan samar da
+    ingantattun ayyukan sayen data, airtime da sauran
+    ayyukan biyan kuɗi.
+  </div>
+
+</div>
+
+<footer>
+  BEEN ASHEER SMART DATA © 2026<br>
+  Fast • Reliable • Secure
+</footer>
+
 </body>
 </html>
