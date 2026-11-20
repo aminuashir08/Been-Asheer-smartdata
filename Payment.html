@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment | BEEN ASHEER SMART DATA</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f5f8;
+    color: #142c43;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px #00000010;
+}
+
+header {
+    background: #102c47;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+header h2 {
+    margin-bottom: 8px;
+}
+
+.order {
+    background: #f5f7f9;
+    padding: 18px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.order p {
+    margin: 10px 0;
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: #102c47;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:disabled {
+    opacity: 0.6;
+}
+
+.message {
+    display: none;
+    margin-top: 15px;
+    padding: 12px;
+    background: #fff3cd;
+    border-radius: 8px;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #102c47;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 18px;
+    color: #777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back" href="data.html">← Back to Data</a>
+
+<header>
+<h2>BEEN ASHEER SMART DATA</h2>
+<p>Secure Payment</p>
+</header>
+
+<div class="card">
+
+<h2>Order Summary</h2>
+
+<div class="order">
+
+<p id="network"></p>
+<p id="phone"></p>
+<p id="plan"></p>
+
+<p class="amount" id="amount"></p>
+
+</div>
+
+<button id="payButton">
+Pay Now
+</button>
+
+<div id="message" class="message"></div>
+
+<p class="note">
+Payment is currently in demo mode. No real money will be deducted.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const order =
+JSON.parse(localStorage.getItem("dataOrder"));
+
+const networkElement =
+document.getElementById("network");
+
+const phoneElement =
+document.getElementById("phone");
+
+const planElement =
+document.getElementById("plan");
+
+const amountElement =
+document.getElementById("amount");
+
+const message =
+document.getElementById("message");
+
+if (!order) {
+
+    networkElement.textContent =
+        "No order found.";
+
+    document.getElementById("payButton").disabled = true;
+
+} else {
+
+    networkElement.textContent =
+        "Network: " + order.network;
+
+    phoneElement.textContent =
+        "Phone: " + order.phone;
+
+    planElement.textContent =
+        "Plan: " + order.plan;
+
+    amountElement.textContent =
+        "₦" + Number(order.amount).toLocaleString();
+
+}
+
+document
+.getElementById("payButton")
+.addEventListener("click", function () {
+
+    message.style.display = "block";
+
+    message.textContent =
+        "Demo payment started. Real payment gateway will be connected next.";
+
+});
+
+</script>
+
+</body>
+</html>
