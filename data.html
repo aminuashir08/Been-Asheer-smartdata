@@ -1,4 +1,5 @@
-<!data html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -49,7 +50,8 @@ label {
     font-weight: bold;
 }
 
-input, select {
+input,
+select {
     width: 100%;
     padding: 14px;
     border: 1px solid #ddd;
@@ -69,12 +71,39 @@ button {
     font-weight: bold;
 }
 
+button:disabled {
+    opacity: 0.6;
+}
+
 .back {
     display: inline-block;
     margin-bottom: 20px;
     color: #102c47;
     text-decoration: none;
     font-weight: bold;
+}
+
+.summary {
+    display: none;
+    background: #e8f5e9;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.summary h3 {
+    margin-bottom: 10px;
+}
+
+.summary p {
+    margin: 6px 0;
+}
+
+.message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
 }
 
 .note {
@@ -104,6 +133,7 @@ button {
 <form id="dataForm">
 
 <label>Select Network</label>
+
 <select id="network" required>
 <option value="">Choose Network</option>
 <option value="MTN">MTN</option>
@@ -113,6 +143,7 @@ button {
 </select>
 
 <label>Phone Number</label>
+
 <input
 type="tel"
 id="phone"
@@ -122,6 +153,7 @@ required
 >
 
 <label>Select Data Plan</label>
+
 <select id="plan" required>
 <option value="">Choose Data Plan</option>
 <option value="500MB">500MB - ₦150</option>
@@ -132,72 +164,152 @@ required
 <option value="10GB">10GB - ₦2,300</option>
 </select>
 
-<button type="submit">Continue</button>
+<button type="submit" id="submitBtn">
+Continue
+</button>
 
 </form>
 
+<div id="orderSummary" class="summary">
+
+<h3>Order Summary</h3>
+
+<p id="summaryNetwork"></p>
+<p id="summaryPhone"></p>
+<p id="summaryPlan"></p>
+<p id="summaryPrice"></p>
+
+</div>
+
+<div id="message" class="message"></div>
+
 <p class="note">
-Demo page: No payment will be made and no data will be delivered until a secure data service API is connected.
+Demo mode: payment and real data delivery are not yet connected.
 </p>
 
 </div>
 </div>
 
 <script>
-document.getElementById("dataForm").addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    const network = document.getElementById("network").value;
-    const phone = document.getElementById("phone").value;
-    const plan = document.getElementById("plan").value;
+const API_URL =
+"https://been-asheer-smartdata-zw31.vercel.app/api/data";
 
-    if (!/^[0-9]{11}$/.test(phone)) {
-        alert("Please enter a valid 11-digit phone number.");
-        return;
-    }
-
-    alert(
-        "Your selection:\n" +
-        "Network: " + network + "\n" +
-        "Phone: " + phone + "\n" +
-        "Plan: " + plan +
-        "\n\nDemo only. Payment and data delivery are not yet active."
-    );
-});
-</script>
-<div id="orderSummary" style="display:none; background:#e8f5e9; padding:15px; margin:15px 0; border-radius:10px;">
-  <h3>Order Summary</h3>
-  <p id="summaryNetwork"></p>
-  <p id="summaryPhone"></p>
-  <p id="summaryPlan"></p>
-  <p id="summaryPrice"></p>
-  <p>Demo only — no payment or data delivery yet.</p>
-</div>
-
-<script>
-document.querySelector("form").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const network = document.querySelector("select").value;
-  const phone = document.querySelector("input").value;
-  const plan = document.querySelector("#plan").value;
-
-  const prices = {
+const prices = {
     "500MB": 150,
     "1GB": 250,
     "2GB": 500,
     "3GB": 750,
     "5GB": 1200,
     "10GB": 2300
-  };
+};
 
-  document.getElementById("summaryNetwork").textContent = "Network: " + network;
-  document.getElementById("summaryPhone").textContent = "Phone: " + phone;
-  document.getElementById("summaryPlan").textContent = "Plan: " + plan;
-  document.getElementById("summaryPrice").textContent = "Price: ₦" + prices[plan].toLocaleString();
+document
+.getElementById("dataForm")
+.addEventListener("submit", async function(e) {
 
-  document.getElementById("orderSummary").style.display = "block";
+    e.preventDefault();
+
+    const network =
+        document.getElementById("network").value;
+
+    const phone =
+        document.getElementById("phone").value;
+
+    const plan =
+        document.getElementById("plan").value;
+
+    const submitBtn =
+        document.getElementById("submitBtn");
+
+    const message =
+        document.getElementById("message");
+
+    if (!/^[0-9]{11}$/.test(phone)) {
+
+        alert("Please enter a valid 11-digit phone number.");
+
+        return;
+    }
+
+    const amount = prices[plan];
+
+    document.getElementById("summaryNetwork").textContent =
+        "Network: " + network;
+
+    document.getElementById("summaryPhone").textContent =
+        "Phone: " + phone;
+
+    document.getElementById("summaryPlan").textContent =
+        "Plan: " + plan;
+
+    document.getElementById("summaryPrice").textContent =
+        "Price: ₦" + amount.toLocaleString();
+
+    document.getElementById("orderSummary").style.display =
+        "block";
+
+    message.style.display = "block";
+
+    message.textContent = "Connecting to BEEN ASHEER API...";
+
+    submitBtn.disabled = true;
+
+    try {
+
+        const response = await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                network: network,
+                phone: phone,
+                plan: plan,
+                amount: amount
+            })
+
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            message.textContent =
+                "API connected successfully. Demo order received.";
+
+        } else {
+
+            message.textContent =
+                result.message || "Request failed.";
+
+        }
+
+    } catch (error) {
+
+        message.textContent =
+            "Could not connect to the API.";
+
+        console.error(error);
+
+    } finally {
+
+        submitBtn.disabled = false;
+
+    }
+
 });
+
 </script>
+
 </body>
 </html>
+Yanzu ka yi haka
+A GitHub:
+data.html → Edit → ka maye gurbin tsohon code gaba ɗaya da wannan → Commit changes.
+Bayan Vercel ya gama deployment, ka buɗe website ɗin ka ka gwada Buy Data → network → phone → plan → Continue.
+Wannan ba zai cire kuɗi ba kuma ba zai aika real data ba. Zai kawai tabbatar mana cewa website → Vercel API suna magana da juna.
+Ka gama Commit ɗin, sai ka rubuto “na gama”.
