@@ -278,8 +278,16 @@ document
 
         if (result.success) {
 
-            message.textContent =
-                "API connected successfully. Demo order received.";
+    localStorage.setItem("dataOrder", JSON.stringify({
+        network: network,
+        phone: phone,
+        plan: plan,
+        amount: amount
+    }));
+
+    window.location.href = "payment.html";
+
+} else {
 
         } else {
 
@@ -306,10 +314,4 @@ document
 </script>
 
 </body>
-</html>
-Yanzu ka yi haka
-A GitHub:
-data.html → Edit → ka maye gurbin tsohon code gaba ɗaya da wannan → Commit changes.
-Bayan Vercel ya gama deployment, ka buɗe website ɗin ka ka gwada Buy Data → network → phone → plan → Continue.
-Wannan ba zai cire kuɗi ba kuma ba zai aika real data ba. Zai kawai tabbatar mana cewa website → Vercel API suna magana da juna.
-Ka gama Commit ɗin, sai ka rubuto “na gama”.
+</ html/>
